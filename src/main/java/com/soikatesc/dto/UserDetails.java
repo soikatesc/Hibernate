@@ -1,5 +1,7 @@
 package com.soikatesc.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "USER_DETAILS")
 public class UserDetails {
@@ -18,13 +26,21 @@ public class UserDetails {
 	private int userId;
 	private String userName;
 	@ElementCollection
-	private Set<Address> listofAddresses = new HashSet();
+	@JoinTable (name="USER_ADDRESS",
+				joinColumns=@JoinColumn(name="USER_ID")
+				
+			)
+	@GenericGenerator(name="sequence-gen", strategy="sequence")
+	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "sequence-gen", type = @Type(type="long"))
+	private Collection<Address> listofAddresses = new ArrayList<Address>();
 	
-	public Set<Address> getListofAddresses() {
+	
+
+	public Collection<Address> getListofAddresses() {
 		return listofAddresses;
 	}
 
-	public void setListofAddresses(Set<Address> listofAddresses) {
+	public void setListofAddresses(Collection<Address> listofAddresses) {
 		this.listofAddresses = listofAddresses;
 	}
 
