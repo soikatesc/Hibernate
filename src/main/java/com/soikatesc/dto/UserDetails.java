@@ -1,25 +1,31 @@
 package com.soikatesc.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "USER_DETAILS")
 public class UserDetails {
 	
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
 	private String userName;
+	@ElementCollection
+	private Set<Address> listofAddresses = new HashSet();
 	
-	public UserDetails() {
-		
+	public Set<Address> getListofAddresses() {
+		return listofAddresses;
 	}
-	
-	public UserDetails(int userId, String userName) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		
+
+	public void setListofAddresses(Set<Address> listofAddresses) {
+		this.listofAddresses = listofAddresses;
 	}
 
 	public int getUserId() {
