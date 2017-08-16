@@ -25,6 +25,7 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create</property>
         <mapping class="com.soikatesc.dto.UserDetails"/>
+        <mapping class="com.soikatesc.dto.Vehicle"/>
     </session-factory>
 </hibernate-configuration>
 

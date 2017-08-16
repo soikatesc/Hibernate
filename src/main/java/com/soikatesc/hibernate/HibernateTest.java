@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.soikatesc.dto.Address;
 import com.soikatesc.dto.UserDetails;
+import com.soikatesc.dto.Vehicle;
 
 public class HibernateTest {
 
@@ -14,30 +15,20 @@ public class HibernateTest {
 		// TODO Auto-generated method stub
 		UserDetails user = new UserDetails();	
 		user.setUserName("Md");
-	
-		Address addr1 = new Address();
-		addr1.setStreet("First Street");
 		
-		Address addr2 = new Address();
-		addr2.setStreet("2nd street");
+		Vehicle vehicle = new Vehicle();
+		vehicle.setVehicleName("Car");
 		
-		user.getListofAddresses().add(addr1);
-		user.getListofAddresses().add(addr2);
+		user.setVehicle(vehicle);
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(user);
+		session.save(vehicle);
 		session.getTransaction().commit();
 		session.close();
-		
-		user = null;
-		session = sessionFactory.openSession();
-		user = (UserDetails) session.get(UserDetails.class, 1);
-		System.out.println(user.getListofAddresses().size());
-		session.close();
-		System.out.println(user.getListofAddresses().size());
 		
 	}
 
