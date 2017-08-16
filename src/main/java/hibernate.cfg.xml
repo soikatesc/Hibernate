@@ -27,3 +27,4 @@
         <mapping class="com.soikatesc.dto.UserDetails"/>
     </session-factory>
 </hibernate-configuration>
+
